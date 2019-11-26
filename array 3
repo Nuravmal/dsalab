@@ -1,0 +1,153 @@
+3. For a given array, write functions to perform the following:
+i. Finding single element in an array
+ii. Finding multiple elements in an array
+iii. Finding duplicates in a sorted array
+iv. Finding duplicates in an unsorted array
+v. Finding a pair of elements with sum k
+vi. Finding a pair of elements with sum k in sorted array
+vii. Finding max and min in a single scan
+#include<iostream>
+using namespace std;
+void display(int a[],int n)
+{
+cout<<"The elements in the array are:\n";
+for(int i=0;i<n;i++)
+{
+cout<<a[i]<<" ";
+}
+cout<<"\n";
+}
+void search(int a[],int n,int y)
+{
+int fg,i;
+for(i=0;i<n;i++)
+{
+if(a[i]==y)
+{
+fg=1;
+break;
+}
+}
+if(fg==1)
+{
+cout<<"The number"<<y<<"was found on position at:\n"<<i+1;
+}
+else
+{cout<<"The number was not found\n";}
+}
+int sort(int a[],int n)
+{
+int temp;
+for(int i=0;i<n;i++)
+{
+for(int j=i+1;j<n;j++)
+{
+if(a[i]>a[j])
+{
+temp =a[i];
+a[i]=a[j];
+a[j]=temp;
+}
+}
+}
+return a[n];
+}
+int removedup(int arr[],int n)
+{
+ if (n==0 || n==1)
+ return n;
+ int temp[n];
+ int j = 0;
+ for (int i=0; i<n-1; i++)
+ if (arr[i] != arr[i+1])
+ temp[j++] = arr[i];
+ temp[j++] = arr[n-1];
+ for (int i=0; i<j; i++)
+ arr[i] = temp[i];
+ return j;
+}
+void pairs(int a[],int n,int sum)
+{
+ int l, r;
+ l = 0;
+ r = n - 1;
+ while (l < r)
+{
+ if (a[l] + a[r] == sum)
+ {
+cout<<"The pair found is:"<<l+1<<" and "<<r+1;
+ return;
+ }
+ else if (a[l] + a[r] < sum)
+ l++;
+ else
+ r--;
+}
+cout<<"Pair was not found";
+}
+void maxmin(int a[],int n)
+{
+int temp=a[0];
+for(int i = 1;i < n; ++i)
+ {
+ if(temp < a[i])
+ temp = a[i];
+ }
+ cout << "\nMaximum element in the array is:\n " << temp;
+temp=a[0];
+for(int i = 1;i < n; ++i)
+ {
+ if(temp > a[i])
+ temp = a[i];
+ }
+ cout << "\nMinimum element in the array is:\n " <<temp;
+}
+int main()
+{
+int n;
+cout<<"Enter the number of elements: ";
+cin>>n;
+int a[n];
+cout<<"Enter the array:\n";
+for(int i=0;i<n;i++)
+{
+cin>>a[i];
+}
+display(a,n);
+int y;
+cout<<"\nenter the number to be searched:\n";
+cin>>y;
+search(a,n,y);
+int m;
+cout<<"Enter the number of multiple elements to be searched:\n";
+cin>>m;
+int ele[m];
+if(m!=0)
+cout<<"Enter the multiple elements to be searched:\n";
+for(int i=0;i<m;i++)
+{
+cin>>ele[i];
+}
+for(int i=0;i<m;i++)
+{
+search(a,n,ele[i]);
+}
+int fg;
+cout<<"You want to find dublicates in sorted(=0) or unsorted array(=1):"<<endl;
+cin>>fg;
+if(fg==0)
+a[n]=sort(a,n);
+n=removedup(a,n);
+cout<<"After removing duplicates: "<<endl;
+display(a,n);
+int sum;
+cout<<"Enter the sum to find the pair: "<<endl;
+cin>>sum;
+cout<<"You want to find pair in sorted(=0) or unsorted array(=1):"<<endl;
+cin>>fg;
+if(fg==0)
+a[n]=sort(a,n);
+pairs(a,n,sum);
+maxmin(a,n);
+return 0;
+}
