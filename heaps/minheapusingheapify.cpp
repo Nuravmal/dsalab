@@ -42,6 +42,6 @@ int main()
 {
   int arr[]={5,15,9,0,4,6,8};
   int n=sizeof(arr)/sizeof(arr[0]);
-maxheap(arr,n);
+minheap(arr,n);
 display(arr,n);
 }
