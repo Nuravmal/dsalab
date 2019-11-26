@@ -1,0 +1,156 @@
+#include<iostream>
+using namespace std;
+void display(int a[],int n)
+{
+for(int i=0;i<n;i++)
+{
+cout<<a[i]<<" ";
+}
+}
+void checksort(int a[],int n)
+{ int fg;
+for(int i=0;i<n;i++)
+{
+for(int j=i+1;j<n;j++)
+{
+if(a[i]>a[j])
+{
+fg=1;
+break;
+}
+}
+}
+if(fg==1)
+{
+cout<<"\nThe array is not sorted\n";
+}
+else
+{
+cout<<"\nThe array is sorted\n";
+}
+}
+int merge(int ab[],int a[],int b[],int n,int n1,int n2)
+{
+for(int i=0;i<n1;i++)
+{
+ab[i]=a[i];
+}
+for(int j=0;j<n2;j++)
+{
+ab[n1+j]=b[j];
+}
+return ab[n];
+}
+int sort(int a[],int n)
+{
+int temp;
+for(int i=0;i<n;i++)
+{
+for(int j=i+1;j<n;j++)
+{
+if(a[i]>a[j])
+{
+temp =a[i];
+a[i]=a[j];
+a[j]=temp;
+}
+}
+}
+return a[n];
+}
+int unions(int a1[],int a2[],int n,int m,int u[])
+{
+int i,j,k,count=0;
+for(i=0,j=0,k=0;i<n&&j<m;)
+{
+if(a1[i]<a2[j])
+{
+u[k]=a1[i];
+i++;
+k++;
+count++;
+}
+else if(a1[i]>a2[j])
+{
+u[k]=a2[j];
+j++;
+k++;
+count++;
+}
+else{
+u[k]=a1[i];
+i++;
+j++;
+k++;
+count++;
+}
+}
+if(i<n){
+for(;i<n;++i){
+u[k]=a1[i];
+k++;
+count++;
+}
+}
+else if(j<m)
+{
+for(;j<m;++j){
+u[k]=a2[j];
+k++;
+count++;
+}
+}
+return u[count];
+}
+int inter(int a1[],int a2[],int m,int n)
+{
+ int i = 0, j = 0;
+ while (i < m && j < n)
+ {
+ if (a1[i] < a2[j])
+ i++;
+ else if (a2[j] < a1[i])
+ j++;
+ else
+ {
+ cout << a2[j] << " ";
+ i++;
+ j++;
+ }
+ }
+}
+int main()
+{
+int n1,n2,n;
+cout<<"Enter the Number of elements:\n";
+cin>>n1;
+int a[n1];
+cout<<"Enter the array:\n";
+for(int i=0;i<n1;i++)
+{
+cin>>a[i];
+}
+checksort(a,n1);
+cout<<"Enter the number of second elements:\n";
+cin>>n2;
+int b[n2];
+cout<<"Enter the second array:\n";
+for(int i=0;i<n2;i++)
+{
+cin>>b[i];
+}
+n=n1+n2;
+int ab[n];
+ab[n]=merge(ab,a,b,n,n1,n2);
+cout<<"The elements in combined array is:\n";
+display(ab,n);
+a[n1]=sort(a,n1);
+b[n1]=sort(b,n2);
+int u[n];
+u[n]=unions(a,b,n1,n2,u);
+cout<<"\nThe elements after union is: \n";
+display(u,n);
+cout<<"\nThe elements after intersection is: \n";
+inter(a,b,n1,n2);
+return 0;
+}
