@@ -7,10 +7,10 @@ using namespace std;
   int l=2*i+1;
   int r=2*i+2;
 
-  if(l<n&&arr[largest]>arr[l])
+  if(l<n&&arr[largest]<arr[l])
   largest=l;
 
-  if(r<n&&arr[largest]>arr[r])
+  if(r<n&&arr[largest]<arr[r])
     largest=r;
 
     if(largest!=i)
