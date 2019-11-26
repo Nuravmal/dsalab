@@ -1,0 +1,356 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+int data;
+node *next;
+node *prevnode;
+};
+node *head=NULL;
+node *temp=NULL;
+node *head2=NULL;
+node *temp2=NULL;
+void create()
+{
+node *temp1=new node();
+int n1,n2;
+cout<<"\nenter data for first list: ";
+cin>>n1;
+temp1->data=n1;
+temp1->next=NULL;
+if(head==NULL)
+{
+head=temp1;
+temp=head;
+}
+else
+{
+temp->next=temp1;
+temp=temp->next;
+}
+node *temp3=new node();
+cout<<"\nenter data for second list: ";
+cin>>n2;
+temp3->data=n2;
+temp3->next=NULL;
+if(head2==NULL)
+{
+head2=temp3;
+temp2=head2;
+}
+else
+{
+temp2->next=temp3;
+temp2=temp2->next;
+}
+}
+void display()
+{
+temp=head;
+cout<<"Elements of first list: ";
+cout<<"\n";
+while(temp!=NULL)
+{
+cout<<temp->data<<" ";
+temp=temp->next;
+}
+temp2=head2;
+cout<<"\nElements of Second list: ";
+cout<<"\n";
+while(temp2!=NULL)
+{
+cout<<temp2->data<<" ";
+temp2=temp2->next;
+}
+}
+void count()
+{
+int sum=0,n,count=0;
+temp=head;
+while(temp!=NULL)
+{
+n=temp->data;
+sum=sum+n;
+temp=temp->next;
+count++;
+}
+cout<<"\nSum and count is: "<<sum<<" "<<count;
+}
+void search()
+{
+int n,count=1,fg=0;
+cout<<"\nEnter the element to search:";
+cin>>n;
+temp=head;
+while(temp!=NULL)
+{
+if(temp->data==n)
+{
+fg=1;
+break;
+}
+count++;
+temp=temp->next;
+}
+if(fg==1)
+cout<<"\nThe element was found at: "<<count;
+else
+cout<<"\nThe element was not found";
+}
+void deletele()
+{
+int n,fg=0;
+cout<<"\nEnter the element to delete:";
+cin>>n;
+temp=head;
+node *prev=new node();
+while(temp!=NULL)
+{
+if(head->data==n)
+{
+head=head->next;
+fg=2;
+break;
+}
+if(temp->data==n && temp->next==NULL)
+{
+delete(prev->next);
+prev->next=NULL;
+fg=3;
+break;
+}
+if(temp->data==n)
+{
+fg=1;
+break;
+}
+prev=temp;
+temp=temp->next;
+}
+if(fg==1)
+prev->next=temp->next;
+if(fg==0)
+cout<<"\nThe element was not found\n";
+temp=head;
+cout<<"Elements of list after deleting: ";
+cout<<"\n";
+while(temp!=NULL)
+{
+cout<<temp->data<<" ";
+temp=temp->next;
+}
+}
+void checksort()
+{
+int fg=0;
+temp=head;
+while(temp->next!=NULL)
+{
+if(temp->data > temp->next->data)
+fg=1;
+temp=temp->next;
+}
+if(fg==1)
+cout<<"\nThe linked list is not sorted\n";
+else
+cout<<"\nThe The linked list is sorted\n";
+}
+void concatenate()
+{
+temp=head;
+while(temp->next!=NULL)
+{
+temp=temp->next;
+}
+temp->next=head2;
+temp=head;
+cout<<"After concatenate the elements of list: ";
+cout<<"\n";
+while(temp!=NULL)
+{
+cout<<temp->data<<" ";
+temp=temp->next;
+}
+}
+void merge()
+{
+node *first=new node();
+node *second=new node();
+node *third=new node();
+first=head;
+second=head2;
+int fg;
+if(first->data>second->data)
+{
+third=second;
+second=second->next;
+third->next=NULL;
+fg=0;
+}
+if(first->data<second->data)
+{
+third=first;
+first=first->next;
+third->next=NULL;
+fg=1;
+}
+while(first!=NULL && second!=NULL)
+{
+if(first->data>second->data)
+{
+third->next=second;
+third=third->next;
+second=second->next;
+}
+if(first->data<second->data)
+{
+third->next=first;
+third=third->next;
+first=first->next;
+}
+}
+if(first!=NULL)
+{
+third->next=first;
+third=third->next;
+}
+if(second!=NULL)
+{
+third->next=second;
+}
+if(fg==0)
+third=head2;
+if(fg==1)
+third=head;
+cout<<"\nafter merging: ";
+while(third!=NULL)
+{
+cout<<third->data<<" ";
+third=third->next;
+}
+}
+void reverse()
+{
+ node* current = head;
+ node *prev = NULL, *next = NULL;
+ while (current != NULL) {
+ next = current->next;
+ current->next = prev;
+ prev = current;
+ current = next;
+ }
+ head = prev;
+temp=head;
+cout<<"\nAfter reversing: ";
+ while(temp!=NULL)
+{
+cout<<temp->data<<" ";
+temp=temp->next;
+}
+}
+void createcircular()
+{
+node *temp1=new node();
+int n1;
+cout<<"\nEnter data for circular list: ";
+cin>>n1;
+temp1->data=n1;
+temp1->next=head;
+if(head==NULL)
+{
+head=temp1;
+temp=head;
+temp->next=head;
+}
+else
+{
+temp->next=temp1;
+temp=temp->next;
+}
+}
+void displaycircular()
+{
+temp=head;
+cout<<"Elements of circular list: ";
+cout<<"\n";
+while(temp->next!=head)
+{
+cout<<temp->data<<" ";
+temp=temp->next;
+}
+cout<<temp->data;
+}
+void createdoubly()
+{
+node *temp1=new node();
+int n;
+cout<<"\nEnter data for doubly list: ";
+cin>>n;
+temp1->data=n;
+temp1->next=NULL;
+if(head==NULL)
+{
+head=temp1;
+temp=head;
+temp->prevnode=NULL;
+}
+else
+{
+temp1->prevnode=temp;
+temp->next=temp1;
+temp=temp->next;
+}
+}
+void displaydoubly()
+{
+temp=head;
+cout<<"Elements of doubly list: ";
+cout<<"\n";
+while(temp!=NULL)
+{
+cout<<temp->data<<" ";
+temp=temp->next;
+}
+}
+void displaydoublyreverse()
+{
+cout<<"\nElements of doubly list in reverse order: ";
+cout<<"\n";
+temp=head;
+while(temp->next!=NULL)
+temp=temp->next;
+while(temp->prevnode!=NULL)
+{
+cout<<temp->data<<" ";
+temp=temp->prevnode;
+}
+cout<<temp->data;
+}
+int main()
+{
+int n;
+cout<<"enter the number of elements you want in list: "<<endl;
+cin>>n;
+for(int i=0;i<n;i++)
+create();
+display();
+count();
+search();
+deletele();
+checksort();
+merge();
+concatenate();
+reverse();
+cout<<"enter the number of elements you want in circuar list: "<<endl;
+cin>>n;
+for(int i=0;i<2;i++)
+createcircular();
+displaycircular();
+cout<<"enter the number of elements you want in doubly list: "<<endl;
+cin>>n;
+for(int i=0;i<5;i++)
+createdoubly();
+displaydoubly();
+displaydoublyreverse();
+return 0;
+}
