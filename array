@@ -1,0 +1,247 @@
+#include<iostream>
+using namespace std;
+void display(int a[],int n)
+{
+cout<<"The elements in the array are:\n";
+for(int i=0;i<n;i++)
+{
+cout<<a[i]<<" ";
+}
+cout<<"\n";
+}
+void add(int a[],int n)
+{
+int n1=n+1;
+int b[n1];
+for(int i=0;i<n;i++)
+{
+b[i]=a[i];
+}
+int value;
+cout<<"\nEnter the element which you wish to add :\n";
+ cin>>value;
+ b[n] = value;
+cout<<"\nAfter Adding:\n";
+display(b,n1);
+}
+void deletele(int a[],int n)
+{
+int b[n-1];int h,i=0,j=0,count=0,fg=0;
+cout<<"Enter the element to delete:\n";
+cin>>h;
+for(i=0,j=0;i<n;j++)
+{
+if(a[i]==h)
+{
+fg=1;
+i++;
+}
+else
+{
+b[j]=a[i];
+count++;
+i++;
+}
+}
+if(fg!=1)
+{ cout<<"\nThe element was not found\n";
+}
+else
+{
+cout<<"\nAfter deleting:\n";
+display(b,count);
+}
+}
+void insert(int a[],int n,int b[])
+{
+for(int i=0;i<n;i++)
+{
+b[i]=a[i];
+}
+int position,value;
+cout<<"\nEnter the element which you wish to add and positon where to add:\n";
+ cin>>value>>position;
+for (int i = n - 1; i >= position - 1; i--)
+ b[i+1] = b[i];
+ b[position-1] = value;
+ cout<<"\nAfter Inserting:\n";
+display(b,n+1);
+}
+void large(int a[],int n)
+{ int temp=a[0];
+for(int i = 1;i < n; ++i)
+ {
+ if(temp < a[i])
+ temp = a[i];
+ }
+ cout << "\nMaximum element in the array is:\n " << temp;
+}
+void min(int a[],int n)
+{
+int temp=a[0];
+for(int i = 1;i < n; ++i)
+ {
+ if(temp > a[i])
+ temp = a[i];
+ }
+ cout << "\nMinimum element in the array is:\n " <<temp;
+}
+void get(int a[],int n)
+{
+int fg,i,k;
+cout<<"\nEnter the index of element to find:\n";
+cin>>k;
+for(i=0;i<n;i++)
+{
+if(i==k)
+{
+fg=1;
+break;
+}
+}
+if(fg==1)
+{ if(i==0)
+cout<<"\nThe element on given position:\n"<<a[i];
+else
+cout<<"\nThe element on given position:\n"<<a[i-1];
+}
+}
+void set(int a[],int n,int b[])
+{
+for(int i=0;i<n;i++)
+{
+b[i]=a[i];
+}
+int position,value;
+cout<<"\nEnter the element which you wish to insert and index:\n";
+ cin>>value>>position;
+for (int i = n - 1; i >= position - 1; i--)
+ b[i+1] = b[i];
+ b[position-1] = value;
+ cout<<"\nAfter Inserting:\n";
+display(b,n+1);
+}
+void linearsearch(int a[],int n)
+{
+int y;
+cout<<"\nenter the number to be searched:\n";
+cin>>y;
+int fg,i;
+for(i=0;i<n;i++)
+{
+if(a[i]==y)
+{
+fg=1;
+break;
+}
+}
+if(fg==1)
+{
+cout<<"The number was found on position in linear search:\n"<<i+1;
+}
+else
+{cout<<"The number was not found\n";}
+}
+int sort(int a[],int n)
+{
+int temp;
+for(int i=0;i<n;i++)
+{
+for(int j=i+1;j<n;j++)
+{
+if(a[i]>a[j])
+{
+temp =a[i];
+a[i]=a[j];
+a[j]=temp;
+}
+}
+}
+return a[n];
+}
+void binarysearch(int a[], int l, int r)
+{
+int k,m;
+cout<<"\nenter the number to be searched in binary search:\n";
+cin>>k;
+ while (l <= r) {
+ m = l + (r - l) / 2;
+
+ if (a[m] == k)
+ goto found;
+
+ if (a[m] < k)
+ l = m + 1;
+ else
+ r = m - 1;
+ }
+ goto notf;
+ found:
+ cout<<"The element was found at position in binary search:\n"<<m+1;
+ return;
+notf:
+ cout<<"The element was not found in binary search\n";
+}
+void reverse(int a[],int n,int b[])
+{
+int i,j;
+for(i=n-1,j=0; i>=0;i--,j++)
+ {
+ b[i]=a[j];
+}
+cout<<"\nAfter reversing:\n";
+display(b,n);
+}
+void shift(int a[],int n)
+{
+int i,tempr;
+for(i=0;i<n;i++)
+ {
+ tempr = a[n];
+ a[n] = a[i];
+ a[i] = tempr;
+ }
+ cout<<"\nAfter shifting:\n";
+display(a,n);
+}
+void rotate(int a[],int n)
+{
+ int temp = a[0],i;
+ for ( i = 0; i < n ; i++)
+ {
+a[i] = a[i + 1];
+}
+ a[n-1] = temp;
+cout<<"\nAfter rotation:\n";
+display(a,n);
+}
+int main()
+{
+int n;
+cout<<"Enter the number of elements:\n";
+cin>>n;
+int a[n];
+cout<<"Enter the array:\n";
+for(int i=0;i<n;i++)
+{
+cin>>a[i];
+}
+display(a,n);
+add(a,n);
+int n1=n+1;
+int b1[n1];
+insert(a,n,b1);
+deletele(a,n);
+linearsearch(a,n);
+a[n]=sort(a,n);
+binarysearch(a,0,n-1);
+get(a,n);
+set(a,n,b1);
+large(a,n);
+min(a,n);
+int b[n];
+reverse(a,n,b);
+shift(b,n);
+rotate(b,n);
+return 0;
+}
